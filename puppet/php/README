@@ -1,0 +1,22 @@
+Installation and configuration of php on an nginx or apache webserver with support for Debian and CentOS using puppet
+
+example site.pp usage:
+
+  class { 'php':
+        webserver       => "nginx",
+	modules         => ['apc','bcmath','cli','fcgi','gd','log','mbstring','pear','xml'],
+        apc_progressbar => false,
+        php_error_log   => "php_errors.log";
+  }
+
+example vagrant box:
+
+  config.vm.define :centos6 do |centos6_config|
+        centos6_config.vm.box = "centos-6.2"
+        centos6_config.vm.host_name = "centos6-testing"
+        centos6_config.vm.provision :puppet do |puppet|
+             puppet.manifests_path = "manifests"
+             puppet.manifest_file = "site.pp"
+             puppet.module_path = "modules"
+        end
+  end

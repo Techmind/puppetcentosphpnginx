@@ -1,0 +1,13 @@
+# assume rvm/ruby is installed
+#else ruby is installed with puppet
+sudo apt-get install virtualbox curl puppet -y
+curl -L https://get.rvm.io | bash -s stable --ruby
+source $HOME/.rvm/scripts/rvm
+gem install vagrant
+export rvmsudo_secure_path=1
+sudo puppet resource user puppet ensure=present gid=puppet shell='/sbin/nologin'
+sudo apt-get install puppet
+mkdir vagrantboxes
+cd vagrantboxes
+wget http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.3-x86_64-v20130101.box
+vagrant box add centos ./CentOS-6.3-x86_64-v20130101.box CentOS-6.3-x86_64-v20130101.box CentOS-6.3-x86_64-v20130101.box
